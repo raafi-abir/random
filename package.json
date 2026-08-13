@@ -1,0 +1,10 @@
+{
+  "name": "eee-cinematic-portfolio",
+  "version": "1.0.0",
+  "description": "Award-winning cinematic EEE student portfolio with premium animations and 3D-inspired interactions.",
+  "private": true,
+  "scripts": {
+    "build": "node --check src/main.js",
+    "start": "python3 -m http.server 4173"
+  }
+}

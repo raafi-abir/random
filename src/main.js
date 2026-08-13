@@ -1,0 +1,32 @@
+const projects = [
+  ['Nano Rover', 'Obstacle-aware rover with ultrasonic fusion, encoder feedback and magnetic chassis.', 'rover'],
+  ['AeroMesh Drone', 'Telemetry-first quadcopter prototype for campus mapping and payload experiments.', 'drone'],
+  ['Smart Grid Twin', 'Energy monitoring dashboard with predictive load balancing and anomaly alerts.', 'circuit'],
+  ['Silicon Bloom', 'Semiconductor learning platform with diode curves and transistor visualizations.', 'diode']
+];
+
+const root = document.getElementById('root');
+root.innerHTML = `
+<div class="loader"><div class="loader-mark">EEE</div><div class="loader-bar"><span></span></div><p>Calibrating cinematic circuits…</p></div>
+<nav><a class="brand" href="#top">⚡ Circuit Noir</a><div class="nav-links"><a href="#work">Work</a><a href="#process">Process</a><a href="#contact">Contact</a><button id="theme" aria-label="Toggle theme">☀</button><span class="mobile">☰</span></div></nav>
+<header id="top" class="hero"><div class="particles">${Array.from({length:28},(_,i)=>`<i style="--i:${i}"></i>`).join('')}</div><section class="hero-copy reveal"><p class="eyebrow">Electrical & Electronic Engineering Portfolio</p><h1>Engineering kinetic machines with cinematic precision.</h1><p class="sub">Robotics, drones, embedded systems, semiconductors and automation projects presented as a premium interactive story.</p><div class="cta"><a class="btn primary" href="#work">Explore systems →</a><a class="btn ghost" href="#contact">Book a build review</a></div></section>${orbital('chip')}</header>
+<main>
+<section class="stats reveal">${[['27+','prototypes shipped'],['9','robotics awards'],['14k','lines of firmware'],['99.4%','sensor accuracy']].map(([n,l])=>`<div><strong>${n}</strong><span>${l}</span></div>`).join('')}</section>
+<section class="split reveal"><div><p class="eyebrow">About</p><h2>A student lab disguised as a luxury innovation studio.</h2></div><p>I design hardware and code as one continuous experience: clean schematics, dependable firmware, elegant dashboards and physical prototypes that feel alive.</p></section>
+<section class="services reveal">${[['🤖','Autonomous Robotics','Line-followers, rover platforms, SLAM-ready chassis and competition-grade control systems.'],['🚁','Drone Systems','Flight controllers, telemetry, brushless power trains, payload mounting and safety checklists.'],['🧠','Embedded Design','STM32, Arduino, ESP32, PCB bring-up, sensor fusion, power regulation and diagnostics.'],['🏭','Automation Labs','PLC concepts, IoT dashboards, relay logic, motor drivers and industrial-style sequencing.']].map(([i,t,c])=>`<article><span class="icon">${i}</span><h3>${t}</h3><p>${c}</p></article>`).join('')}</section>
+<section id="work" class="work reveal"><div class="section-head"><div><p class="eyebrow">Case studies</p><h2>Hardware stories with layered depth.</h2></div><label class="search">⌕<input id="search" placeholder="Search projects" /></label></div><div class="grid" id="grid"></div></section>
+<section id="process" class="timeline reveal"><p class="eyebrow">Process</p><h2>From signal to showcase.</h2>${['Research physics and user need','Simulate circuits and power budget','Prototype firmware and enclosure','Validate, document and present'].map((s,i)=>`<div class="step"><b>0${i+1}</b><span>${s}</span></div>`).join('')}</section>
+<section class="marquee"><div class="marquee-track"><span>ROBOTICS</span><span>DRONES</span><span>PCB</span><span>IOT</span><span>SEMICONDUCTORS</span><span>AUTOMATION</span><span>ROBOTICS</span><span>DRONES</span><span>PCB</span><span>IOT</span></div></section>
+<section class="pricing reveal"><h2>Collaboration modes</h2><div><article><h3>Mentorship</h3><p>Portfolio review, circuit critique and presentation polish.</p></article><article class="featured"><h3>Prototype Sprint</h3><p>End-to-end concept, embedded code, demo video and documentation.</p></article><article><h3>Research Build</h3><p>Long-form automation or robotics system with analytics and reports.</p></article></div></section>
+<section class="faq reveal"><h2>FAQ</h2>${['Can you integrate CMS, blog and analytics?','Do you support multilingual pages?','Can visitors book appointments or WhatsApp?'].map(q=>`<details><summary>${q}</summary><p>Yes. The architecture is prepared for scalable content, forms, CRM handoff, schema markup and conversion tracking.</p></details>`).join('')}</section>
+<section id="contact" class="contact reveal"><div><p class="eyebrow">Contact</p><h2>Let’s turn a circuit sketch into a signature project.</h2><p>🌐 Dhaka / Remote-ready engineering collaboration</p></div><form><input placeholder="Name"/><input placeholder="Email"/><textarea placeholder="Tell me about your robotics, drone or automation idea"></textarea><button class="btn primary" type="button">✉ Send inquiry</button></form></section>
+</main><footer><b>Circuit Noir</b><span>SEO-ready • Accessible • Fast • Cinematic</span><div><a>LinkedIn</a><a>GitHub</a><a>WhatsApp</a></div></footer>`;
+
+function orbital(kind){return `<div class="orbital ${kind}"><div class="chip-core"><span class="cpu">▣</span><span></span></div><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div></div>`}
+function render(q=''){document.getElementById('grid').innerHTML=projects.filter(p=>p.join(' ').toLowerCase().includes(q.toLowerCase())).map(([title,copy,type])=>`<article class="project ${type}"><div class="model">${orbital(type)}</div><h3>${title}</h3><p>${copy}</p><a>View breakdown →</a></article>`).join('')}
+render();
+setTimeout(()=>document.querySelector('.loader')?.classList.add('hide'),1700);
+document.getElementById('theme').addEventListener('click',()=>{const d=document.documentElement.dataset.theme==='light';document.documentElement.dataset.theme=d?'dark':'light';document.getElementById('theme').textContent=d?'☀':'☾'});
+document.getElementById('search').addEventListener('input',e=>render(e.target.value));
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.orbital').forEach(card=>{card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--rx',`${-(e.clientY-r.top-r.height/2)/14}deg`);card.style.setProperty('--ry',`${(e.clientX-r.left-r.width/2)/14}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg')})});
